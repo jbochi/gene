@@ -37,7 +37,7 @@
                :mutate mutate
                :population-size 40
                :n-generations 200}
-    final-generation (evolve problem)
-    solution (first final-generation)]
+      final-generation (evolve problem)
+      solution (first final-generation)]
         (println solution)
         (println (n-equal-chars solution target)))

@@ -17,7 +17,7 @@
 
 (def final-generation (evolve score initial-population max-generations #(mutate % n) crossover))
 
-(def solution (first (select-n score final-generation 1)))
+(def solution (first final-generation))
 
 (println solution)
 (println (score solution))

@@ -1,23 +1,24 @@
 (ns gene.evolve)
 
-(defn breed [crossover parents]
+(defn- breed [crossover parents]
   (apply crossover
     (partition 2 (shuffle parents))))
 
-(defn select-n [score population n]
-  (take n (reverse (sort-by score population))))
+(defn- sort-by-fitness [score population]
+  (reverse (sort-by score population)))
 
-(defn next-generation [score population mutate crossover]
-  (let [most-fit (select-n score population (/ (count population) 4))]
-    (concat
-      most-fit
-      (map mutate most-fit)
-      (mapcat (fn [_] (partial crossover breed) most-fit) (range 2))
-     )))
+(defn- next-generation [score population mutate crossover]
+  (let [most-fit (take (/ (count population) 4) population)]
+    (sort-by-fitness
+      score
+      (concat
+        most-fit
+        (map mutate most-fit)
+        (mapcat (fn [_] (partial crossover breed) most-fit) (range 2))))))
 
 (def evolve
   (fn [score population max-generations mutate crossover]
-    (loop [gen population
+    (loop [gen (sort-by-fitness score population)
            cnt max-generations]
       (if (zero? cnt)
         gen

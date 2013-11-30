@@ -7,8 +7,9 @@
 (defn- sort-by-fitness [score population]
   (sort-by score > population))
 
-(defn- next-generation [score population population-size mutate crossover]
-  (let [most-fit (take (/ population-size 4) population)]
+(defn- next-generation [population problem]
+  (let [{:keys [population-size score mutate crossover]} problem
+        most-fit (take (/ population-size 4) population)]
     (sort-by-fitness score
       (concat
         most-fit
@@ -19,12 +20,13 @@
              (apply concat))))))
 
 (def evolve
-  (fn [score random-solution population-size max-generations mutate crossover]
-    (let [population (->> (repeatedly random-solution)
+  (fn [problem]
+    (let [{:keys [random-solution population-size score max-generations]} problem
+          population (->> (repeatedly random-solution)
                           (take population-size)
                           (sort-by-fitness score))]
       (loop [gen population
              cnt max-generations]
         (if (zero? cnt)
           gen
-          (recur (next-generation score gen population-size mutate crossover) (dec cnt)))))))
+          (recur (next-generation gen problem) (dec cnt)))))))

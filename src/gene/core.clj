@@ -3,21 +3,14 @@
           [gene.data :only [cost-matrix]]
           gene.uncap))
 
-(def n 15)
-(def p 10)
-
-(defn score [warehouses]
-  (- (cost cost-matrix warehouses)))
-
-(def max-generations 20)
-
-(def population-size 20)
-
-(def random-solution (partial random-set n p))
-
-(def final-generation (evolve score random-solution population-size max-generations #(mutate % n) crossover))
-
-(def solution (first final-generation))
-
-(println solution)
-(println (cost cost-matrix solution))
+(let [n 15 p 10
+      problem {:score #(- (cost cost-matrix %))
+               :random-solution (partial random-set n p)
+               :population-size 20
+               :max-generations 20
+               :mutate #(mutate % n)
+               :crossover crossover}
+    final-generation (evolve problem)
+    solution (first final-generation)]
+        (println solution)
+        (println (cost cost-matrix solution)))

@@ -3,10 +3,11 @@
 (defn cost
   "Return cost for a given set of warehouses"
   [cost-matrix warehouses]
-  (reduce +
-    (map #(reduce min %)
-      (apply map vector
-        (map cost-matrix warehouses)))))
+  (->> warehouses
+       (map cost-matrix)
+       (apply map vector)
+       (map #(reduce min %))
+       (reduce +)))
 
 (defn crossover
   "Returns a child of two warehouse sets"

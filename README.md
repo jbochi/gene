@@ -6,7 +6,7 @@ Work in Progress
 
 ## Usage
 
-    lein exec -p src/gene/evolve.clj
+    $ lein exec -p src/gene/evolve.clj
 
 ## License
 

@@ -15,7 +15,6 @@
   (->> (apply conj wh1 wh2)
        (seq)
        (shuffle)
-       (set)
        (take (count wh1))
        (set)))
 

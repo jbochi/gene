@@ -7,8 +7,8 @@
 (defn- sort-by-fitness [score population]
   (sort-by score > population))
 
-(defn- next-generation [score population mutate crossover]
-  (let [most-fit (take (/ (count population) 4) population)]
+(defn- next-generation [score population population-size mutate crossover]
+  (let [most-fit (take (/ population-size 4) population)]
     (sort-by-fitness
       score
       (concat
@@ -25,4 +25,4 @@
              cnt max-generations]
         (if (zero? cnt)
           gen
-          (recur (next-generation score gen mutate crossover) (dec cnt)))))))
+          (recur (next-generation score gen population-size mutate crossover) (dec cnt)))))))

@@ -12,8 +12,11 @@
 (defn crossover
   "Returns a child of two warehouse sets"
   [wh1 wh2]
-  (set (take (count wh1)
-             (shuffle (seq (apply conj wh1 wh2))))))
+  (->> (apply conj wh1 wh2)
+       (seq)
+       (shuffle)
+       (take (count wh1))
+       (set)))
 
 (defn mutate
   "Returns a new warehouse set based on input"

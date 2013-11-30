@@ -20,12 +20,12 @@
              (apply concat))))))
 
 (defn evolve [problem]
-  (let [{:keys [random-solution population-size score max-generations]} problem
+  (let [{:keys [random-solution population-size score n-generations]} problem
         population (->> (repeatedly random-solution)
                         (take population-size)
                         (sort-by-fitness score))]
     (loop [gen population
-           cnt max-generations]
+           cnt n-generations]
       (if (zero? cnt)
         gen
         (recur (next-generation gen problem) (dec cnt))))))

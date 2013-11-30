@@ -8,7 +8,7 @@
                :random-solution (partial random-set n p)
                :mutate #(mutate % n)
                :population-size 20
-               :max-generations 20
+               :n-generations 20
                :crossover crossover}
     final-generation (evolve problem)
     solution (first final-generation)]

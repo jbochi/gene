@@ -17,9 +17,12 @@
         (mapcat (fn [_] (partial crossover breed) most-fit) (range 2))))))
 
 (def evolve
-  (fn [score population max-generations mutate crossover]
-    (loop [gen (sort-by-fitness score population)
-           cnt max-generations]
-      (if (zero? cnt)
-        gen
-        (recur (next-generation score gen mutate crossover) (dec cnt))))))
+  (fn [score random-solution population-size max-generations mutate crossover]
+    (let [population (->> (repeatedly random-solution)
+                          (take population-size)
+                          (sort-by-fitness score))]
+      (loop [gen population
+             cnt max-generations]
+        (if (zero? cnt)
+          gen
+          (recur (next-generation score gen mutate crossover) (dec cnt)))))))

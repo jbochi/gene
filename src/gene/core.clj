@@ -11,11 +11,9 @@
 
 (def population-size 20)
 
-(def initial-population
-  (take population-size
-        (repeatedly #(random-set n p))))
+(def random-solution (partial random-set n p))
 
-(def final-generation (evolve score initial-population max-generations #(mutate % n) crossover))
+(def final-generation (evolve score random-solution population-size max-generations #(mutate % n) crossover))
 
 (def solution (first final-generation))
 

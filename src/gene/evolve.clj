@@ -63,7 +63,7 @@
 
 ;;;;;;;;;;;;;;;;;
 
-(def max-generations 200)
+(def max-generations 20)
 
 (def population-size 20)
 

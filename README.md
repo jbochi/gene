@@ -6,7 +6,7 @@ Work in Progress
 
 ## Usage
 
-FIXME
+    lein exec -p src/gene/evolve.clj
 
 ## License
 

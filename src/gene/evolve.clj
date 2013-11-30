@@ -5,7 +5,7 @@
     (partition 2 (shuffle parents))))
 
 (defn- sort-by-fitness [score population]
-  (reverse (sort-by score population)))
+  (sort-by score > population))
 
 (defn- next-generation [score population mutate crossover]
   (let [most-fit (take (/ (count population) 4) population)]

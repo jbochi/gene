@@ -10,6 +10,6 @@ Work in Progress
 
 ## License
 
-Copyright © 2013 FIXME
+Copyright © 2013 Juarez Bochi
 
 Distributed under the Eclipse Public License, the same as Clojure.

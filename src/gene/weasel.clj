@@ -36,8 +36,9 @@
                :crossover one-point-crossover
                :mutate mutate
                :population-size 40
-               :n-generations 200}
+               :n-generations 400
+               :debug true}
       final-generation (evolve problem)
       solution (first final-generation)]
-        (println solution)
-        (println (n-equal-chars solution target)))
+        (println "Final solution: " solution)
+        (println "# of wrong letters: " (->> target (n-equal-chars solution) (- (count target)))))

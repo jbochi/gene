@@ -7,9 +7,9 @@
       problem {:score #(- (cost cost-matrix %))
                :random-solution (partial random-set n p)
                :mutate #(mutate % n)
+               :crossover crossover
                :population-size 20
-               :n-generations 20
-               :crossover crossover}
+               :n-generations 20}
     final-generation (evolve problem)
     solution (first final-generation)]
         (println solution)

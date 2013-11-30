@@ -6,7 +6,11 @@ Work in Progress
 
 ## Usage
 
-    $ lein exec -p src/gene/core.clj
+    $ lein exec -p src/gene/weasel.clj # for the weasel program
+
+or
+
+    $ lein exec -p src/gene/core.clj # for the uncapacitated facility location problem
 
 ## License
 

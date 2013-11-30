@@ -20,4 +20,4 @@
 (def solution (first final-generation))
 
 (println solution)
-(println (score solution))
+(println (cost cost-matrix solution))

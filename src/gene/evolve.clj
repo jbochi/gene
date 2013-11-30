@@ -1,39 +1,8 @@
 (ns gene.evolve
-  (:use gene.data))
-
-;;;;;;;;;;;;;;;;
+  (:use gene.data gene.uncap))
 
 (def n 15)
 (def p 10)
-
-;;;;;;;;;;;;;;;;;;
-(defn cost
-  "Return cost for a given set of warehouses"
-  [cost-matrix warehouses]
-  (reduce +
-    (map #(reduce min %)
-      (apply map vector
-        (map cost-matrix warehouses)))))
-
-(defn crossover
-  "Returns a child of two warehouse sets"
-  [wh1 wh2]
-  (set (take (count wh1)
-             (shuffle (seq (apply conj wh1 wh2))))))
-
-(defn mutate
-  "Returns a new warehouse set based on input"
-  [warehouse]
-  (let [in (rand-int n)
-        out (rand-nth (seq warehouse))]
-    (conj (disj warehouse out) in)))
-
-(defn random-set
-  "Returns a random set of p warehouse of n possible warehouses"
-  [n p]
-  (set (take p (shuffle (range n)))))
-;;;;;;;;;;;;;;;;;;
-
 
 (defn score [warehouses]
   (- (cost cost-matrix warehouses)))
@@ -49,7 +18,7 @@
   (let [most-fit (select-n score population (/ (count population) 4))]
     (concat
       most-fit
-      (map mutate most-fit)
+      (map #(mutate % n) most-fit)
       (mapcat (fn [_] breed most-fit) (range 2))
      )))
 

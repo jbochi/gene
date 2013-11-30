@@ -19,14 +19,13 @@
              (take 2)
              (apply concat))))))
 
-(def evolve
-  (fn [problem]
-    (let [{:keys [random-solution population-size score max-generations]} problem
-          population (->> (repeatedly random-solution)
-                          (take population-size)
-                          (sort-by-fitness score))]
-      (loop [gen population
-             cnt max-generations]
-        (if (zero? cnt)
-          gen
-          (recur (next-generation gen problem) (dec cnt)))))))
+(defn evolve [problem]
+  (let [{:keys [random-solution population-size score max-generations]} problem
+        population (->> (repeatedly random-solution)
+                        (take population-size)
+                        (sort-by-fitness score))]
+    (loop [gen population
+           cnt max-generations]
+      (if (zero? cnt)
+        gen
+        (recur (next-generation gen problem) (dec cnt))))))

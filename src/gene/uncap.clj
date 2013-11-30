@@ -28,4 +28,7 @@
 (defn random-set
   "Returns a random set of p warehouse of n possible warehouses"
   [n p]
-  (set (take p (shuffle (range n)))))
+  (->> (range n)
+       (shuffle)
+       (take p)
+       (set)))

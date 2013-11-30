@@ -1,5 +1,7 @@
 (ns gene.core
-    (:use gene.data gene.uncap gene.evolve))
+    (:use [gene.evolve :only [evolve]]
+          [gene.data :only [cost-matrix]]
+          gene.uncap))
 
 (def n 15)
 (def p 10)

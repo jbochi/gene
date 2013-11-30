@@ -9,12 +9,14 @@
 
 (defn- next-generation [score population population-size mutate crossover]
   (let [most-fit (take (/ population-size 4) population)]
-    (sort-by-fitness
-      score
+    (sort-by-fitness score
       (concat
         most-fit
         (map mutate most-fit)
-        (mapcat (fn [_] (partial crossover breed) most-fit) (range 2))))))
+        (->> #(breed crossover most-fit)
+             (repeatedly)
+             (take 2)
+             (apply concat))))))
 
 (def evolve
   (fn [score random-solution population-size max-generations mutate crossover]

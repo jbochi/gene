@@ -1,7 +1,7 @@
 (ns gene.evolve)
 
 (defn- breed [crossover parents]
-  (apply crossover
+  (map #(apply crossover %)
     (partition 2 (shuffle parents))))
 
 (defn- sort-by-fitness [score population]

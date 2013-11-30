@@ -1,6 +1,8 @@
 # gene
 
-A Clojure library designed to ... well, that part is up to you.
+Parallel Genetic Algorithm in Clojure
+
+Work in Progress
 
 ## Usage
 

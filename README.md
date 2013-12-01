@@ -6,7 +6,7 @@ Work in Progress
 
 ## Usage
 
-    $ lein exec -p src/gene/weasel.clj # for the weasel program
+    $ lein test # unit and integration tests (weasel program)
 
 or
 

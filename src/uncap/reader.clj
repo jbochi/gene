@@ -8,8 +8,13 @@
        (#(split % #"\s"))
        (map read-string)))
 
+(defn- read-costs [rdr n]
+  (for [_ (range n)]
+    (second (read-numbers rdr))))
+
 (defn read-file [filename]
   (let [rdr (io/reader filename)
         [m n] (read-numbers rdr)]
     {:n n
-     :m m}))
+     :m m
+     :costs (read-costs rdr m)}))

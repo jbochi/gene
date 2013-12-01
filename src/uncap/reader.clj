@@ -3,7 +3,10 @@
   (:use [clojure.string :only [split trim]]))
 
 (defn- read-numbers [rdr]
-  (map read-string (split (trim (.readLine rdr)) #"\s")))
+  (->> (.readLine rdr)
+       (trim)
+       (#(split % #"\s"))
+       (map read-string)))
 
 (defn read-file [filename]
   (let [rdr (io/reader filename)

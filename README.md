@@ -8,12 +8,12 @@ Work in Progress
 
 You only need to define a couple of functions and pass a couple of constants to run your own a genetic algorithm:
 
-*score: The fitness function for a given DNA
-*random-solution: A function that returns a random DNA
-*mutate: A function that mutates a DNA
-*crossover: A function that takes two DNAs and generate a new one
-*population-size: The population size for any generation
-*n-generations: The number of generations that will run
+* `:score`: The fitness function for a given DNA
+* `:random-solution`: A function that returns a random DNA
+* `:mutate`: A function that mutates a DNA
+* `:crossover`: A function that takes two DNAs and generate a new one
+* `:population-size`: The population size for any generation
+* `:n-generations`: The number of generations that will run
 
 We provide two examples:
 

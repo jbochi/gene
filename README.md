@@ -6,11 +6,13 @@ Work in Progress
 
 ## Usage
 
-    $ lein test # unit and integration tests (weasel program)
+`src/uncap/core/clj` has a solver for the uncapacitated facility location problem.
 
-or
+`src/weasel/core/clj` has a solver for the weasel program.
 
-    $ lein exec -p src/uncap/core.clj # for the uncapacitated facility location problem
+## Running tests
+
+    $ lein test
 
 ## License
 

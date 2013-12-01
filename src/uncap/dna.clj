@@ -1,13 +1,24 @@
 (ns uncap.dna)
 
-(defn cost
-  "Return cost for a given set of warehouses"
+(defn- transportation-cost
+  "Return the transportation cost for a given set of warehouses"
   [cost-matrix warehouses]
   (->> warehouses
        (map cost-matrix)
        (apply map vector)
        (map #(reduce min %))
        (reduce +)))
+
+(defn- installation-cost
+  "Return the installation cost of the given warehouses"
+  [warehouse-costs warehouses]
+  (reduce + (map warehouse-costs warehouses)))
+
+(defn cost
+  "Return cost for a given set of warehouses"
+  [cost-matrix warehouse-costs warehouses]
+  (+ (transportation-cost cost-matrix warehouses)
+     (installation-cost warehouse-costs warehouses)))
 
 (defn crossover
   "Returns a child of two warehouse sets"

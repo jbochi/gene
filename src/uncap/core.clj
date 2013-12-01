@@ -4,9 +4,9 @@
           uncap.dna))
 
 (let [data (read-file "test/uncap/data/cap71.txt")
-      {:keys [cost-matrix m]} data
+      {:keys [cost-matrix warehouse-costs m]} data
       p 10
-      problem {:score #(- (cost cost-matrix %))
+      problem {:score #(- (cost cost-matrix warehouse-costs %))
                :random-solution (partial random-set m p)
                :mutate #(mutate % m)
                :crossover crossover
@@ -15,4 +15,4 @@
     final-generation (evolve problem)
     solution (first final-generation)]
         (println solution)
-        (println (cost cost-matrix solution)))
+        (println (cost cost-matrix warehouse-costs solution)))

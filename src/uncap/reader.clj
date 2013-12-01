@@ -19,6 +19,6 @@
         cost-matrix (partition m (inc m) (drop 1 customer-numbers))]
     {:n n
      :m m
-     :warehouse-costs warehouse-costs
-     :demands demands
+     :warehouse-costs (apply vector warehouse-costs)
+     :demands (apply vector demands)
      :cost-matrix (apply mapv vector cost-matrix)}))

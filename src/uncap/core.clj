@@ -5,9 +5,8 @@
 
 (let [data (read-file "test/uncap/data/cap71.txt")
       {:keys [cost-matrix warehouse-costs m]} data
-      p 10
       problem {:score #(- (cost cost-matrix warehouse-costs %))
-               :random-solution (partial random-set m p)
+               :random-solution #(random-set m (inc (rand-int m)))
                :mutate #(mutate % m)
                :crossover crossover
                :population-size 20

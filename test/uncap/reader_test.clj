@@ -5,4 +5,4 @@
 (deftest read-test
   (testing "Reader"
     (let [data (read-file "test/uncap/data/cap71.txt")]
-        (is (= 15 (data :n))))))
+        (is (= 50 (data :n))))))

@@ -35,6 +35,10 @@ We provide two examples:
 
     $ java -jar ./target/gene-0.1.0-SNAPSHOT-standalone.jar -f test/uncap/data/cap101.txt
 
+To see all available options, run it with no arguments:
+
+    $ java -jar ./target/gene-0.1.0-SNAPSHOT-standalone.jar
+
 ## License
 
 Copyright © 2013 Juarez Bochi

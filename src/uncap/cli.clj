@@ -5,12 +5,15 @@
 
 (defn run
   [opts args]
-  (println (solve (opts :file))))
+  (println (solve opts)))
 
 (defn -main [& args]
   (let [[opts args banner]
         (cli args
              ["-f" "--file" "input file path"]
+             ["-d" "--debug" "turn debug on" :flag true]
+             ["-n" "--n-generations" "number of generations" :default 50 :parse-fn #(Integer. %)]
+             ["-p" "--population-size" "population size" :default 20 :parse-fn #(Integer. %)]
              )]
     (when (:help opts)
       (println banner)

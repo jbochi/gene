@@ -25,11 +25,13 @@ We provide two examples:
 
     $ lein test
 
-## Build
+## Solving the uncapacitated facility location problem
+
+### Build
 
     $ lein uberjar
 
-## Solving the uncapacitated facility location problem
+### Running
 
     $ java -jar ./target/gene-0.1.0-SNAPSHOT-standalone.jar -f test/uncap/data/cap101.txt
 

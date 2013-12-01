@@ -1,6 +1,6 @@
 ; http://en.wikipedia.org/wiki/Weasel_program
-(ns gene.weasel
-    (:use [gene.evolve :only [evolve]]))
+(ns weasel.core
+    (:use [gene.core :only [evolve]]))
 
 (defn- random-char []
   (let [i (rand-int 27)]

@@ -1,16 +1,32 @@
-(ns gene.core
-    (:use [gene.evolve :only [evolve]]
-          [gene.data :only [cost-matrix]]
-          gene.uncap))
+(ns gene.core)
 
-(let [n 15 p 10
-      problem {:score #(- (cost cost-matrix %))
-               :random-solution (partial random-set n p)
-               :mutate #(mutate % n)
-               :crossover crossover
-               :population-size 20
-               :n-generations 20}
-    final-generation (evolve problem)
-    solution (first final-generation)]
-        (println solution)
-        (println (cost cost-matrix solution)))
+(defn- breed [crossover parents]
+  (map #(apply crossover %)
+    (partition 2 (shuffle parents))))
+
+(defn- sort-by-fitness [score population]
+  (sort-by score > population))
+
+(defn- next-generation [population problem]
+  (let [{:keys [population-size score mutate crossover]} problem
+        most-fit (take (/ population-size 4) population)]
+    (sort-by-fitness score
+      (concat
+        most-fit
+        (map mutate most-fit)
+        (->> #(breed crossover most-fit)
+             (repeatedly)
+             (take 2)
+             (apply concat))))))
+
+(defn evolve [problem]
+  (let [{:keys [random-solution population-size score n-generations debug]} problem
+        population (->> (repeatedly random-solution)
+                        (take population-size)
+                        (sort-by-fitness score))]
+    (loop [gen population
+           cnt n-generations]
+      (if debug (println cnt gen))
+      (if (zero? cnt)
+        gen
+        (recur (next-generation gen problem) (dec cnt))))))

@@ -1,6 +1,6 @@
-(ns gene.evolve-test
+(ns gene.core-test
   (:use clojure.test
-        gene.evolve))
+        gene.core))
 
 (deftest evolve-test
   (testing "Evolution"

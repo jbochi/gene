@@ -10,7 +10,7 @@ Work in Progress
 
 or
 
-    $ lein exec -p src/gene/core.clj # for the uncapacitated facility location problem
+    $ lein exec -p src/uncap/core.clj # for the uncapacitated facility location problem
 
 ## License
 

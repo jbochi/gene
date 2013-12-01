@@ -1,4 +1,4 @@
-(ns gene.data)
+(ns uncap.data)
 
 (def cost-matrix
  (apply mapv vector

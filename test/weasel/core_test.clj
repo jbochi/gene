@@ -1,6 +1,6 @@
-(ns gene.weasel-test
+(ns weasel.core-test
   (:use clojure.test
-        gene.weasel))
+        weasel.core))
 
 (deftest weasel-test
   (testing "Weasel"

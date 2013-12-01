@@ -1,6 +1,6 @@
-(ns gene.uncap-test
+(ns uncap.dna-test
   (:use clojure.test
-        gene.uncap))
+        uncap.dna))
 
 (deftest cost-test
   (testing "Cost"

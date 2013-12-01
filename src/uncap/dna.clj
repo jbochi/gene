@@ -1,4 +1,4 @@
-(ns gene.uncap)
+(ns uncap.dna)
 
 (defn cost
   "Return cost for a given set of warehouses"

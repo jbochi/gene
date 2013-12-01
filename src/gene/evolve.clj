@@ -26,7 +26,7 @@
                         (sort-by-fitness score))]
     (loop [gen population
            cnt n-generations]
-      (if debug (println cnt (first gen)))
+      (if debug (println cnt gen))
       (if (zero? cnt)
         gen
         (recur (next-generation gen problem) (dec cnt))))))

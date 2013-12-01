@@ -17,9 +17,9 @@ You only need to define a couple of functions and pass a couple of constants to 
 
 We provide two examples:
 
-`src/uncap/core.clj` has a solver for the uncapacitated facility location problem.
+`src/uncap/core.clj` has a solver for the [uncapacitated facility location problem](http://en.wikipedia.org/wiki/Facility_location).
 
-`src/weasel/core.clj` has a solver for the weasel program.
+`src/weasel/core.clj` has a solver for the [Weasel Program](http://en.wikipedia.org/wiki/Weasel_program).
 
 ## Running tests
 

@@ -1,20 +1,18 @@
 (ns uncap.reader
-  (:require [clojure.java.io :as io])
   (:use [clojure.string :only [split trim]]))
 
-(defn- read-numbers [rdr]
-  (->> (.readLine rdr)
-       (trim)
-       (#(split % #"\s"))
-       (map read-string)))
-
-(defn- read-costs [rdr n]
-  (for [_ (range n)]
-    (second (read-numbers rdr))))
+(defn- parse-numbers [text]
+  (map read-string (split (trim text) #"\s+")))
 
 (defn read-file [filename]
-  (let [rdr (io/reader filename)
-        [m n] (read-numbers rdr)]
+  (let [text (slurp filename)
+        numbers (parse-numbers text)
+        [m n] (take 2 numbers)
+        warehouse-costs (take m (take-nth 2 (drop 3 numbers)))
+        customer-numbers (drop (+ (* 2 m) 2) numbers)
+        demands (take-nth (inc m) customer-numbers)]
     {:n n
      :m m
-     :costs (read-costs rdr m)}))
+     :warehouse-costs warehouse-costs
+     :demands demands
+     }))

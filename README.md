@@ -6,9 +6,9 @@ Work in Progress
 
 ## Usage
 
-`src/uncap/core/clj` has a solver for the uncapacitated facility location problem.
+`src/uncap/core.clj` has a solver for the uncapacitated facility location problem.
 
-`src/weasel/core/clj` has a solver for the weasel program.
+`src/weasel/core.clj` has a solver for the weasel program.
 
 ## Running tests
 

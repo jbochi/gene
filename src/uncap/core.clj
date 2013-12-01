@@ -11,7 +11,7 @@
                  :mutate #(mutate % m)
                  :crossover crossover
                  :population-size 20
-                 :n-generations 20}
+                 :n-generations 40}
       final-generation (evolve problem)
       solution (first final-generation)]
         {:solution solution

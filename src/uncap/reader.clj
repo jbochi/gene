@@ -1,8 +1,13 @@
 (ns uncap.reader
   (:use [clojure.string :only [split trim]]))
 
+(defn- read-number [number]
+  (if (= number ".00000")
+    0
+    (read-string number)))
+
 (defn- parse-numbers [text]
-  (map read-string (split (trim text) #"\s+")))
+  (map read-number (split (trim text) #"\s+")))
 
 (defn read-file [filename]
   (let [text (slurp filename)
@@ -16,4 +21,4 @@
      :m m
      :warehouse-costs warehouse-costs
      :demands demands
-     :cost-matrix cost-matrix}))
+     :cost-matrix (apply mapv vector cost-matrix)}))

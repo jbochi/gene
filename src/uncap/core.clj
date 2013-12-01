@@ -1,12 +1,14 @@
 (ns uncap.core
     (:use [gene.core :only [evolve]]
-          [uncap.data :only [cost-matrix]]
+          [uncap.reader :only [read-file]]
           uncap.dna))
 
-(let [n 15 p 10
+(let [data (read-file "test/uncap/data/cap71.txt")
+      {:keys [cost-matrix m]} data
+      p 10
       problem {:score #(- (cost cost-matrix %))
-               :random-solution (partial random-set n p)
-               :mutate #(mutate % n)
+               :random-solution (partial random-set m p)
+               :mutate #(mutate % m)
                :crossover crossover
                :population-size 20
                :n-generations 20}

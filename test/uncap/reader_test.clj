@@ -12,6 +12,6 @@
         (is (= 50 (count (data :demands))))
         (is (= 146 (first (data :demands))))
         (is (= 222 (last (data :demands))))
-        (is (= 50 (count (data :cost-matrix))))
+        (is (= 16 (count (data :cost-matrix))))
         (is (= 6739.72500 (first (first (data :cost-matrix)))))
         (is (= 7448.10000 (last (last (data :cost-matrix))))))))

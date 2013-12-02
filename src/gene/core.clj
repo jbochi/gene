@@ -25,8 +25,8 @@
                         (take population-size)
                         (sort-by-fitness score))]
     (loop [gen population
-           cnt n-generations]
-      (if debug (println cnt gen))
-      (if (zero? cnt)
+           cnt 0]
+      (if debug (println "generation #" cnt ":" gen))
+      (if (>= cnt n-generations)
         gen
-        (recur (next-generation gen problem) (dec cnt))))))
+        (recur (next-generation gen problem) (inc cnt))))))

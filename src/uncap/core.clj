@@ -6,7 +6,7 @@
 (defn solve [opts]
   (let [data (read-file (opts :file))
         {:keys [cost-matrix warehouse-costs m]} data
-        problem {:score #(- (cost cost-matrix warehouse-costs %))
+        problem {:score (memoize #(- (cost cost-matrix warehouse-costs %)))
                  :random-solution #(random-set m (inc (rand-int m)))
                  :mutate #(mutate % m)
                  :crossover crossover

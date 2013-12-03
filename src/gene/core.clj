@@ -8,11 +8,11 @@
 (defn- sort-by-fitness [score population]
   (sort-by score > population))
 
-(defn- mix-imigrants [imigrants generation]
+(defn- mix-imigrants [imigrants population]
   (dosync
-    (let [x (concat @imigrants generation)]
+    (let [new-population (concat @imigrants population)]
       (swap! imigrants (fn [_] ()))
-      x)))
+      new-population)))
 
 (defn- receive-imigrants [listen imigrants]
   (let [in (immigration listen)]

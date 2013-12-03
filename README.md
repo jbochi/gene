@@ -1,8 +1,6 @@
 # gene
 
-Parallel Genetic Algorithm in Clojure
-
-Work in Progress
+Distributed Genetic Algorithm in Clojure
 
 ## Usage
 
@@ -20,6 +18,22 @@ We provide two examples:
 `src/uncap/core.clj` has a solver for the [uncapacitated facility location problem](http://en.wikipedia.org/wiki/Facility_location).
 
 `src/weasel/core.clj` has a solver for the [Weasel Program](http://en.wikipedia.org/wiki/Weasel_program).
+
+## Going distributed
+
+You can run the simulation on a cluster running the simulation on multiple machines
+through two additional optional arguments:
+
+* `:listen-addr`: The address to listen/receive new solutions
+* `:send-addr`: The address to send/export new solutions
+
+For example, you can run a master node with `:listen-addr` set to "tcp://*:9999" and any number of
+workers with `:send-addr` set to "tcp://master-node-ip:9999". Other topologies are possible.
+
+This follows the Island model, where each process runs it's own simulation and some individual
+migrate from island to island.
+
+We use [ØMQ](http://zeromq.org/) for all communication.
 
 ## Running tests
 

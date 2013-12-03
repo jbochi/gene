@@ -29,7 +29,7 @@
                     (repeatedly)
                     (take 2)
                     (apply concat))
-        next-gen (mix-imigrants imigrants (concat mutations most-fit childs))]
+        next-gen (mix-imigrants imigrants (concat most-fit mutations childs))]
     (sort-by-fitness score next-gen)))
 
 (defn evolve [problem]

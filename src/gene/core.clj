@@ -21,6 +21,12 @@
         (let [new-imigrant (in)]
           (swap! imigrants conj new-imigrant))))))
 
+(defn- first-generation [problem]
+  (let [{:keys [random-solution population-size score]} problem]
+    (->> (repeatedly random-solution)
+         (take population-size)
+         (sort-by-fitness score))))
+
 (defn- next-generation [population imigrants problem]
   (let [{:keys [population-size score mutate crossover listen]} problem
         most-fit (take (/ population-size 4) population)
@@ -33,14 +39,11 @@
     (sort-by-fitness score next-gen)))
 
 (defn evolve [problem]
-  (let [{:keys [random-solution population-size score n-generations debug listen]} problem
-        population (->> (repeatedly random-solution)
-                        (take population-size)
-                        (sort-by-fitness score))
+  (let [{:keys [n-generations debug listen]} problem
         imigrants (atom ())]
     (if-not (nil? listen)
       (receive-imigrants listen imigrants))
-    (loop [gen population
+    (loop [gen (first-generation problem)
            cnt 0]
       (if debug (println "generation #" cnt ":" gen))
       (if (>= cnt n-generations)

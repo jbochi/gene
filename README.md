@@ -21,8 +21,7 @@ We provide two examples:
 
 ## Going distributed
 
-You can run the simulation on a cluster running the simulation on multiple machines
-through two additional optional arguments:
+We provide two additional optional arguments to run the simulation on a cluster:
 
 * `:listen-addr`: The address to listen/receive new solutions
 * `:send-addr`: The address to send/export new solutions
@@ -30,7 +29,7 @@ through two additional optional arguments:
 For example, you can run a master node with `:listen-addr` set to `"tcp://*:9999"` and any number of
 workers with `:send-addr` set to `"tcp://master-node-ip:9999"`. Other topologies are possible.
 
-This follows the Island model, where each process runs it's own simulation and some individual
+This follows the "Island model", where each process runs it's own simulation and some individuals
 migrate from island to island.
 
 We use [ØMQ](http://zeromq.org/) for all communication.

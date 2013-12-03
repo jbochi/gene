@@ -8,7 +8,7 @@
 (defn- sort-by-fitness [score population]
   (sort-by score > population))
 
-(defn- mix-migrants [imigrants generation]
+(defn- mix-imigrants [imigrants generation]
   (dosync
     (let [x (concat @imigrants generation)]
       (swap! imigrants (fn [_] ()))
@@ -29,7 +29,7 @@
                     (repeatedly)
                     (take 2)
                     (apply concat))
-        next-gen (mix-migrants imigrants (concat mutations most-fit childs))]
+        next-gen (mix-imigrants imigrants (concat mutations most-fit childs))]
     (sort-by-fitness score next-gen)))
 
 (defn evolve [problem]

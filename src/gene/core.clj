@@ -14,8 +14,8 @@
       (reset! imigrants ())
       new-population)))
 
-(defn- receive-imigrants [listen imigrants]
-  (let [in (immigration listen)]
+(defn- receive-imigrants [listen-addr imigrants]
+  (let [in (immigration listen-addr)]
     (future
       (while true
         (let [new-imigrant (in)]
@@ -45,11 +45,11 @@
   (println "New best solution found:" new-state))
 
 (defn evolve [problem]
-  (let [{:keys [n-generations debug listen score]} problem
+  (let [{:keys [n-generations debug score listen-addr]} problem
         imigrants (atom ())
         best (atom nil)]
-    (if-not (nil? listen)
-      (receive-imigrants listen imigrants))
+    (if-not (nil? listen-addr)
+      (receive-imigrants listen-addr imigrants))
     (if debug
       (add-watch best :print-best print-new-best-solution))
     (loop [gen (first-generation problem)

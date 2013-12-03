@@ -22,13 +22,13 @@
                    :crossover max
                    :population-size 5
                    :n-generations 10000
-                   :listen "inproc://america"}
+                   :listen-addr "inproc://america"}
           solution (future (evolve problem))
           settler 100]
       (future
         (Thread/sleep 100)
-        (let [out (emigration "inproc://america")]
-          (out (dec settler))
+        (let [export (emigration "inproc://america")]
+          (export (dec settler))
           (Thread/sleep 50)
-          (out settler)))
+          (export settler)))
       (is (= settler (first @solution))))))

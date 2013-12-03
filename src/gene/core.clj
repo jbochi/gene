@@ -20,6 +20,11 @@
              (take 2)
              (apply concat))))))
 
+(defn- receive-imigrants [listen imigrants]
+  (let [in (immigration listen)
+        new (in)]
+    (future (swap! imigrants conj new))))
+
 (defn evolve [problem]
   (let [{:keys [random-solution population-size score n-generations debug listen]} problem
         population (->> (repeatedly random-solution)
@@ -27,9 +32,7 @@
                         (sort-by-fitness score))
         imigrants (atom ())]
     (if-not (nil? listen)
-      (let [in (immigration listen)
-            new (in)]
-        (future (swap! imigrants conj new))))
+      (receive-imigrants listen imigrants))
     (loop [gen population
            cnt 0]
       (if debug (println "generation #" cnt ":" gen))

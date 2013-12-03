@@ -21,6 +21,12 @@
         (let [new-imigrant (in)]
           (swap! imigrants conj new-imigrant))))))
 
+(defn- send-best [best send-addr]
+  (let [out (emigration send-addr)]
+    (add-watch best :send-best
+      (fn [watch-key best-ref old-solution new-solution]
+        (out new-solution)))))
+
 (defn- first-generation [problem]
   (let [{:keys [random-solution population-size score]} problem]
     (->> (repeatedly random-solution)
@@ -41,17 +47,19 @@
 (defn- better-than-best [individual best score]
   (or (nil? best) (> (score individual) (score best))))
 
-(defn- print-new-best-solution [watch-key best-ref old-state new-state]
-  (println "New best solution found:" new-state))
+(defn- print-new-best-solution [watch-key best-ref old-solution new-solution]
+  (println "New best solution found:" new-solution))
 
 (defn evolve [problem]
-  (let [{:keys [n-generations debug score listen-addr]} problem
+  (let [{:keys [n-generations debug score listen-addr send-addr]} problem
         imigrants (atom ())
         best (atom nil)]
-    (if-not (nil? listen-addr)
+    (if listen-addr
       (receive-imigrants listen-addr imigrants))
     (if debug
       (add-watch best :print-best print-new-best-solution))
+    (if send-addr
+      (send-best best send-addr))
     (loop [gen (first-generation problem)
            cnt 0]
       (if debug

@@ -32,3 +32,16 @@
           (Thread/sleep 50)
           (export settler)))
       (is (= settler (first @solution))))))
+
+(deftest evolve-test
+  (testing "Emigration"
+    (let [exported (immigration "inproc://best")
+          problem {:score identity
+                   :random-solution (fn [] 42)
+                   :mutate identity
+                   :crossover max
+                   :population-size 5
+                   :n-generations 5
+                   :send-addr "inproc://best"}
+        final-solution (first (evolve problem))]
+      (is (= 42 (exported))))))

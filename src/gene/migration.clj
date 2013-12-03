@@ -1,6 +1,7 @@
 (ns gene.migration
   (:require [com.keminglabs.zmq-async.core :refer [register-socket!]]
-            [clojure.core.async :refer [>! <! <!! >!! go chan sliding-buffer]]))
+            [clojure.core.async :refer [>! <! <!! >!! go chan sliding-buffer]]
+            [taoensso.nippy :as nippy]))
 
 (defn queue-channels []
     (repeatedly 2 #(chan (sliding-buffer 64))))
@@ -10,7 +11,7 @@
     (register-socket! {:in s-in :out s-out :socket-type :rep
                        :configurator (fn [socket] (.bind socket addr))})
     (fn []
-      (let [immigrant (String. (<!! s-out))]
+      (let [immigrant (nippy/thaw (<!! s-out))]
         (go (>! s-in "OK"))
         immigrant))))
 
@@ -19,5 +20,5 @@
     (register-socket! {:in s-in :out s-out :socket-type :req
                        :configurator (fn [socket] (.connect socket addr))})
     (fn [emigrant]
-      (>!! s-in emigrant)
-        (go (assert (= "OK" (String. (<! s-out))))))))
+      (>!! s-in (nippy/freeze emigrant))
+      (go (assert (= "OK" (String. (<! s-out))))))))

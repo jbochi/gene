@@ -21,7 +21,7 @@
                    :mutate #(mod (inc %) 11)
                    :crossover max
                    :population-size 5
-                   :n-generations 2
+                   :n-generations 10000
                    :listen "inproc://america"}
           solution (future (evolve problem))
           settler 100]

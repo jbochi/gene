@@ -21,9 +21,11 @@
              (apply concat))))))
 
 (defn- receive-imigrants [listen imigrants]
-  (let [in (immigration listen)
-        new (in)]
-    (future (swap! imigrants conj new))))
+  (let [in (immigration listen)]
+    (future
+      (while true
+        (let [new-imigrant (in)]
+          (swap! imigrants conj new-imigrant))))))
 
 (defn evolve [problem]
   (let [{:keys [random-solution population-size score n-generations debug listen]} problem

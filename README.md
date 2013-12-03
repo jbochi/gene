@@ -27,8 +27,8 @@ through two additional optional arguments:
 * `:listen-addr`: The address to listen/receive new solutions
 * `:send-addr`: The address to send/export new solutions
 
-For example, you can run a master node with `:listen-addr` set to "tcp://*:9999" and any number of
-workers with `:send-addr` set to "tcp://master-node-ip:9999". Other topologies are possible.
+For example, you can run a master node with `:listen-addr` set to `"tcp://*:9999"` and any number of
+workers with `:send-addr` set to `"tcp://master-node-ip:9999"`. Other topologies are possible.
 
 This follows the Island model, where each process runs it's own simulation and some individual
 migrate from island to island.

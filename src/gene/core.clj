@@ -8,18 +8,11 @@
 (defn- sort-by-fitness [score population]
   (sort-by score > population))
 
-(defn- next-generation [population imigrants problem]
-  (let [{:keys [population-size score mutate crossover listen]} problem
-        most-fit (take (/ population-size 4) population)]
-    (sort-by-fitness score
-      (concat
-        @imigrants
-        most-fit
-        (map mutate most-fit)
-        (->> #(breed crossover most-fit)
-             (repeatedly)
-             (take 2)
-             (apply concat))))))
+(defn- mix-migrants [imigrants generation]
+  (dosync
+    (let [x (concat @imigrants generation)]
+      (swap! imigrants (fn [_] ()))
+      x)))
 
 (defn- receive-imigrants [listen imigrants]
   (let [in (immigration listen)]
@@ -27,6 +20,17 @@
       (while true
         (let [new-imigrant (in)]
           (swap! imigrants conj new-imigrant))))))
+
+(defn- next-generation [population imigrants problem]
+  (let [{:keys [population-size score mutate crossover listen]} problem
+        most-fit (take (/ population-size 4) population)
+        mutations (map mutate most-fit)
+        childs (->> #(breed crossover most-fit)
+                    (repeatedly)
+                    (take 2)
+                    (apply concat))
+        next-gen (mix-migrants imigrants (concat mutations most-fit childs))]
+    (sort-by-fitness score next-gen)))
 
 (defn evolve [problem]
   (let [{:keys [random-solution population-size score n-generations debug listen]} problem

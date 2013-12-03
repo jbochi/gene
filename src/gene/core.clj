@@ -29,11 +29,12 @@
     (if-not (nil? listen)
       (let [in (immigration listen)
             new (in)]
-        (Thread/sleep 200) ;FIXME
-        (swap! imigrants conj new)))
-    (loop [gen (sort-by-fitness score (concat population @imigrants))
+        (future (swap! imigrants conj new))))
+    (loop [gen population
            cnt 0]
       (if debug (println "generation #" cnt ":" gen))
       (if (>= cnt n-generations)
         gen
-        (recur (next-generation gen problem) (inc cnt))))))
+        (recur
+          (next-generation (sort-by-fitness score (concat gen @imigrants)) problem)
+          (inc cnt))))))

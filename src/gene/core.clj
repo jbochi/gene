@@ -38,6 +38,9 @@
         next-gen (mix-imigrants imigrants (concat most-fit mutations childs))]
     (sort-by-fitness score next-gen)))
 
+(defn- better-than-best [individual best score]
+  (or (nil? best) (> (score individual) (score best))))
+
 (defn- print-new-best-solution [watch-key best-ref old-state new-state]
   (println "New best solution found:" new-state))
 
@@ -53,7 +56,7 @@
            cnt 0]
       (if debug
         (println "generation #" cnt ":" gen))
-      (if (or (nil? @best) (> (score (first gen)) (score @best)))
+      (if (better-than-best (first gen) @best score)
         (reset! best (first gen)))
       (if (>= cnt n-generations)
         gen

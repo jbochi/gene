@@ -8,11 +8,12 @@
 (defn- sort-by-fitness [score population]
   (sort-by score > population))
 
-(defn- next-generation [population problem]
+(defn- next-generation [population imigrants problem]
   (let [{:keys [population-size score mutate crossover listen]} problem
         most-fit (take (/ population-size 4) population)]
     (sort-by-fitness score
       (concat
+        @imigrants
         most-fit
         (map mutate most-fit)
         (->> #(breed crossover most-fit)
@@ -41,5 +42,5 @@
       (if (>= cnt n-generations)
         gen
         (recur
-          (next-generation (sort-by-fitness score (concat gen @imigrants)) problem)
+          (next-generation gen imigrants problem)
           (inc cnt))))))

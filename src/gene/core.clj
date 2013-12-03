@@ -38,14 +38,23 @@
         next-gen (mix-imigrants imigrants (concat most-fit mutations childs))]
     (sort-by-fitness score next-gen)))
 
+(defn- print-new-best-solution [watch-key best-ref old-state new-state]
+  (println "New best solution found:" new-state))
+
 (defn evolve [problem]
-  (let [{:keys [n-generations debug listen]} problem
-        imigrants (atom ())]
+  (let [{:keys [n-generations debug listen score]} problem
+        imigrants (atom ())
+        best (atom nil)]
     (if-not (nil? listen)
       (receive-imigrants listen imigrants))
+    (if debug
+      (add-watch best :print-best print-new-best-solution))
     (loop [gen (first-generation problem)
            cnt 0]
-      (if debug (println "generation #" cnt ":" gen))
+      (if debug
+        (println "generation #" cnt ":" gen))
+      (if (or (nil? @best) (> (score (first gen)) (score @best)))
+        (reset! best (first gen)))
       (if (>= cnt n-generations)
         gen
         (recur

@@ -25,5 +25,10 @@
                    :listen "inproc://america"}
           solution (future (evolve problem))
           settler 100]
-      (future (Thread/sleep 100) ((emigration "inproc://america") settler))
+      (future
+        (Thread/sleep 100)
+        (let [out (emigration "inproc://america")]
+          (out (dec settler))
+          (Thread/sleep 50)
+          (out settler)))
       (is (= settler (first @solution))))))

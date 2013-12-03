@@ -14,6 +14,8 @@
              ["-d" "--debug" "turn debug on" :flag true]
              ["-n" "--n-generations" "number of generations" :default 50 :parse-fn #(Integer. %)]
              ["-p" "--population-size" "population size" :default 20 :parse-fn #(Integer. %)]
+             ["-l" "--listen-addr" "address to accept immigrants"]
+             ["-s" "--send-addr" "island address where best individuals will migrate to"]
              )]
     (when (:help opts)
       (println banner)

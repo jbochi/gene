@@ -28,7 +28,7 @@
          (sort-by-fitness score))))
 
 (defn- next-generation [population imigrants problem]
-  (let [{:keys [population-size score mutate crossover listen]} problem
+  (let [{:keys [population-size score mutate crossover]} problem
         most-fit (take (/ population-size 4) population)
         mutations (map mutate most-fit)
         childs (->> #(breed crossover most-fit)

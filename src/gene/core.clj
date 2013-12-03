@@ -11,7 +11,7 @@
 (defn- mix-imigrants [imigrants population]
   (dosync
     (let [new-population (concat @imigrants population)]
-      (swap! imigrants (fn [_] ()))
+      (reset! imigrants ())
       new-population)))
 
 (defn- receive-imigrants [listen imigrants]

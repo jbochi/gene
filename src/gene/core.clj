@@ -14,17 +14,19 @@
       (reset! imigrants ())
       new-population)))
 
-(defn- receive-imigrants [listen-addr imigrants]
+(defn- receive-imigrants [listen-addr imigrants debug]
   (let [in (immigration listen-addr)]
     (future
       (while true
         (let [new-imigrant (in)]
+          (if debug (println "Received imigrant:" new-imigrant))
           (swap! imigrants conj new-imigrant))))))
 
-(defn- send-best [best send-addr]
+(defn- send-best [best send-addr debug]
   (let [out (emigration send-addr)]
     (add-watch best :send-best
       (fn [watch-key best-ref old-solution new-solution]
+        (if debug (println "Sending emigrant:" new-solution))
         (out new-solution)))))
 
 (defn- first-generation [problem]
@@ -55,11 +57,11 @@
         imigrants (atom ())
         best (atom nil)]
     (if listen-addr
-      (receive-imigrants listen-addr imigrants))
+      (receive-imigrants listen-addr imigrants debug))
     (if debug
       (add-watch best :print-best print-new-best-solution))
     (if send-addr
-      (send-best best send-addr))
+      (send-best best send-addr debug))
     (loop [gen (first-generation problem)
            cnt 0]
       (if debug

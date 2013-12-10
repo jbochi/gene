@@ -14,7 +14,6 @@
         final-solution (first (evolve problem))]
         (is (= 10 final-solution)))))
 
-
 (deftest best-score-stop-condition
   (testing "Stop condition"
     (let [problem {:score identity

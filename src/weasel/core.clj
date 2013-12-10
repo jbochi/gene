@@ -36,5 +36,6 @@
                  :crossover one-point-crossover
                  :mutate mutate
                  :population-size 40
-                 :n-generations 400}]
+                 :n-generations 1000
+                 :best-possible-score (count target)}]
       (first (evolve problem))))

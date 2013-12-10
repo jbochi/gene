@@ -5,7 +5,7 @@
 
 (defn run
   [opts args]
-  (println (solve opts)))
+  (time (println (solve opts))))
 
 (defn -main [& args]
   (let [[opts args banner]

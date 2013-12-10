@@ -8,7 +8,7 @@
       \space
       (char (+ i (int \A))))))
 
-(defn- random-pharse [n]
+(defn- random-phrase [n]
   (clojure.string/join ""
    (take n (repeatedly random-char))))
 
@@ -32,7 +32,7 @@
 
 (defn evolve-phrase [target]
   (let [problem {:score (partial n-equal-chars target)
-                 :random-solution (partial random-pharse (count target))
+                 :random-solution (partial random-phrase (count target))
                  :crossover one-point-crossover
                  :mutate mutate
                  :population-size 40

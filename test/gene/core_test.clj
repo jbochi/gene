@@ -23,7 +23,7 @@
                    :crossover max
                    :population-size 5
                    :n-generations 1000000 ;a huge number, so test would be very slow without a stop condition
-                   :best-possible-score 10}
+                   :good-enough-score 10}
         final-solution (first (evolve problem))]
         (is (= 10 final-solution)))))
 

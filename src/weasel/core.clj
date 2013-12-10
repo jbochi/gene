@@ -37,5 +37,5 @@
                  :mutate mutate
                  :population-size 40
                  :n-generations 1000
-                 :best-possible-score (count target)}]
+                 :good-enough-score (count target)}]
       (first (evolve problem))))

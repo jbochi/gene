@@ -53,7 +53,7 @@
   (println "New best solution found:" new-solution))
 
 (defn evolve [problem]
-  (let [{:keys [n-generations debug score listen-addr send-addr best-possible-score]} problem
+  (let [{:keys [n-generations debug score listen-addr send-addr good-enough-score]} problem
         imigrants (atom ())
         best (atom nil)]
     (if listen-addr
@@ -69,7 +69,8 @@
       (if (better-than-best (first gen) @best score)
         (reset! best (first gen)))
       (if (or (>= cnt n-generations)
-              (= (score @best) best-possible-score))
+              (and good-enough-score
+                   (>= (score @best) good-enough-score)))
         gen
         (recur
           (next-generation gen imigrants problem)

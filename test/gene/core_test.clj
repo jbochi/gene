@@ -18,14 +18,14 @@
 (deftest best-score-stop-condition
   (testing "Stop condition"
     (let [problem {:score identity
-                   :random-solution #(rand-int 11)
+                   :random-solution #(rand-int 5)
                    :mutate #(mod (inc %) 11)
                    :crossover max
                    :population-size 5
-                   :n-generations 1000000 ;a huge number, so test would be very slow without a stop condition
-                   :good-enough-score 10}
+                   :n-generations 50
+                   :good-enough-score 5}
         final-solution (first (evolve problem))]
-        (is (= 10 final-solution)))))
+        (is (= 5 final-solution)))))
 
 (deftest evolve-test
   (testing "Colonization"

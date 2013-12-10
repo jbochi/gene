@@ -12,6 +12,7 @@
         (cli args
              ["-f" "--file" "input file path"]
              ["-d" "--debug" "turn debug on" :flag true]
+             ["-g" "--good-enough-score" "If score is reached, simulation is stopped" :parse-fn #(- (read-string %))]
              ["-n" "--n-generations" "number of generations" :default 50 :parse-fn #(Integer. %)]
              ["-p" "--population-size" "population size" :default 20 :parse-fn #(Integer. %)]
              ["-l" "--listen-addr" "address to accept immigrants"]

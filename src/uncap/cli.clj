@@ -5,7 +5,13 @@
 
 (defn run
   [opts args]
-  (time (println (solve opts))))
+  (let [address (format "tcp://127.0.0.1:%d" (+ 30000 (rand-int 35000)))
+        master (future (solve (merge opts {:listen-addr address})))
+        worker1 (future (Thread/sleep 50) (solve (merge opts {:send-addr address})))
+        worker2 (future (Thread/sleep 50) (solve (merge opts {:send-addr address})))
+        worker3 (future (Thread/sleep 50) (solve (merge opts {:send-addr address})))]
+    (time (println @master))
+    (System/exit 0)))
 
 (defn -main [& args]
   (let [[opts args banner]

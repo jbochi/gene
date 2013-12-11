@@ -12,7 +12,7 @@
                        :configurator (fn [socket] (.bind socket addr))})
     (fn []
       (let [immigrant (nippy/thaw (<!! s-out))]
-        (go (>! s-in "OK"))
+        (>!! s-in "OK")
         immigrant))))
 
 (defn emigration [addr]
@@ -21,4 +21,4 @@
                        :configurator (fn [socket] (.connect socket addr))})
     (fn [emigrant]
       (>!! s-in (nippy/freeze emigrant))
-      (go (assert (= "OK" (String. (<! s-out))))))))
+      (assert (= "OK" (String. (<!! s-out)))))))
